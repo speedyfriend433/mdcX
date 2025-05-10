@@ -17,7 +17,6 @@ struct Tweak: Identifiable {
     var description: String?
     var action: TweakActionType
     var category: String
-
     var status: String = ""
     var isProcessing: Bool = false
 }

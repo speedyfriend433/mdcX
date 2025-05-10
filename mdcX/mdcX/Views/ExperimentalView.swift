@@ -15,7 +15,7 @@ import SwiftUI
 //    var primaryButton: Alert.Button
 //    var secondaryButton: Alert.Button?
 //}
-class ExperimentRunner: ObservableObject {
+/*class ExperimentRunner: ObservableObject {
 
     func performXPCRespring(logStore: LogStore,
                             statusUpdate: @escaping (String) -> Void,
@@ -271,3 +271,4 @@ struct ExperimentalView_Previews: PreviewProvider {
         }
     }
 }
+*/

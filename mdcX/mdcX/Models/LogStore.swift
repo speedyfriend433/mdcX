@@ -19,7 +19,7 @@ class LogStore: ObservableObject {
 
     func clear() {
         DispatchQueue.main.async {
-            self.messages = "Log cleared.\n"
+            self.messages = "Log cleared at \(DateFormatter.localizedString(from: Date(), dateStyle: .none, timeStyle: .medium)).\n"
         }
     }
 }
