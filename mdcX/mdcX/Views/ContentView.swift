@@ -16,6 +16,15 @@ struct ContentView: View {
                 "/System/Library/PrivateFrameworks/CoreMaterial.framework/dockLight.materialrecipe"
               ]),
               category: "Dock", status: "", isProcessing: false),
+        
+        Tweak(name: "Modify SpringBoard Shelf BG",
+              description: "Attempts to alter a 'shelf' background material within SpringBoard. Likely affects the Dock or iPad App Shelf. Requires respring.",
+              action: .zeroOutFiles(paths: [
+                "/System/Library/PrivateFrameworks/SpringBoard.framework/shelfBackground.materialrecipe"
+              ]),
+              category: "Dock",
+              status: "",
+              isProcessing: false),
 
         Tweak(name: "Transparent UI Elements",
               description: "Makes notifications, media player backgrounds transparent.",
@@ -29,6 +38,16 @@ struct ContentView: View {
               ]),
               category: "UI Elements", status: "", isProcessing: false),
         
+        Tweak(name: "Transparent Notification Avatars",
+              description: "Attempts to make the background behind app icons in notifications transparent. Affects light/dark modes. Requires respring.",
+              action: .zeroOutFiles(paths: [
+                "/System/Library/PrivateFrameworks/UserNotificationsUIKit.framework/avatarBackground.materialrecipe",
+                "/System/Library/PrivateFrameworks/UserNotificationsUIKit.framework/avatarBackgroundDark.materialrecipe"
+              ]),
+              category: "Notifications",
+              status: "",
+              isProcessing: false),
+        
         Tweak(name: "Hide Folder Backgrounds",
               description: "Makes Home Screen folder backgrounds transparent.",
               action: .zeroOutFiles(paths: [
@@ -36,6 +55,15 @@ struct ContentView: View {
                 "/System/Library/PrivateFrameworks/SpringBoardHome.framework/folderLight.materialrecipe"
               ]),
               category: "UI Elements", status: "", isProcessing: false),
+        
+        Tweak(name: "Remove Home Screen Edit Overlay",
+              description: "Attempts to remove/alter the overlay (e.g., dimming) when editing the Home Screen (jiggle mode). Requires respring.",
+              action: .zeroOutFiles(paths: [
+                "/System/Library/PrivateFrameworks/SpringBoardHome.framework/homeScreenOverlay.materialrecipe"
+              ]),
+              category: "UI Elements", 
+              status: "",
+              isProcessing: false),
 
         Tweak(name: "Remove App Switcher Blur",
               description: "Attempts to remove the background blur in the App Switcher.",
@@ -44,6 +72,16 @@ struct ContentView: View {
                 "/System/Library/PrivateFrameworks/SpringBoard.framework/homeScreenBackdrop-switcher.materialrecipe"
               ]),
               category: "UI Elements", status: "", isProcessing: false),
+        
+        Tweak(name: "Remove Spotlight Blur",
+              description: "Attempts to remove the background blur in Spotlight search (Home Screen). Requires respring.",
+              action: .zeroOutFiles(paths: [
+                "/System/Library/PrivateFrameworks/SpringBoard.framework/spotlightBlurBackground.materialrecipe",
+                "/System/Library/PrivateFrameworks/SpringBoard.framework/spotlightLumSatBackground.materialrecipe"
+              ]),
+              category: "UI Elements", 
+              status: "",
+              isProcessing: false),
 
         Tweak(name: "Hide Home Bar",
               description: "Attempts to hide the home indicator bar.",
@@ -54,6 +92,15 @@ struct ContentView: View {
               description: "Hides flashlight and camera buttons on lockscreen.",
               action: .zeroOutFiles(paths: ["/System/Library/PrivateFrameworks/CoverSheet.framework/Assets.car"]),
               category: "Lockscreen", status: "", isProcessing: false),
+        
+        Tweak(name: "Silence Charging Sound",
+              description: "Attempts to disable the charging connection sound by targeting common and device-specific sound files. Reboot/SSV might restore it.",
+              action: .zeroOutFiles(paths: [
+                "/System/Library/Audio/UISounds/connect_power.caf",
+              ]),
+              category: "Sounds",
+              status: "",
+              isProcessing: false),
 
         Tweak(name: "Silence Video Record Sounds",
               description: "Disables sounds when video recording starts/ends.",
