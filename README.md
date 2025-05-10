@@ -29,7 +29,7 @@ The application uses a C-based exploit (based on the `VM_BEHAVIOR_ZERO_WIRED_PAG
 ## Requirements
 
 -   An iOS device
--   An iOS version where the underlying file-zeroing technique is adjustive.
+-   An iOS version where the underlying file-zeroing technique is adjustive. (below iOS 18.4)
 -   Xcode to build the project.
 
 ## Building and Installation
