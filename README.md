@@ -10,6 +10,13 @@ This tool modifies system files. While the targeted files are generally for UI o
 - The effectiveness of these tweaks is highly dependent on the iOS version and device. They may not work as expected or at all on patched/newer iOS versions.
 - Files on the Sealed System Volume (SSV) may be restored by the OS upon reboot.
 
+**📸 IMPORTANT NOTE ON CAMERA SHUTTER SOUNDS 📸**
+- **In some countries (e.g., Japan, South Korea), it is illegal to disable or silence the camera shutter sound on mobile devices.**
+- This tool provides the technical means to attempt to silence these sounds by modifying system files.
+- **Users are solely responsible for understanding and complying with all local laws and regulations regarding camera shutter sounds in their region.**
+- Using this feature to disable shutter sounds where it is prohibited by law is done at the user's own risk and discretion.
+- This feature may not be effective in regions with OS-level enforcement of shutter sounds, regardless of file modifications.
+
 ## Features
 
 -   Apply various UI tweaks (e.g., hide dock, transparent UI elements).
@@ -18,18 +25,19 @@ This tool modifies system files. While the targeted files are generally for UI o
 -   "Apply All" option for file-zeroing tweaks.
 -   Activity log to see the status of operations.
 
-## How It Works (i'm not sure  how it actually works lol)
+## How It Works
 
-The application uses a C-based exploit (based on the `VM_BEHAVIOR_ZERO_WIRED_PAGES` technique) to zero out the first page (16KB) of targeted system files.
+The application uses a C-based exploit (based on the `VM_BEHAVIOR_ZERO_WIRED_PAGES` technique) to zero out the first page (typically 16KB) of targeted system files.
 - It maps a read-only file into memory.
 - Marks the memory entry with `VM_BEHAVIOR_ZERO_WIRED_PAGES`.
 - Locks the page using `mlock()`.
 - Deallocates the memory mapping, causing the kernel to zero out the underlying physical page backing that part of the file.
+*(The effectiveness and precise low-level mechanics can vary by OS version and kernel mitigations.)*
 
 ## Requirements
 
--   An iOS device
--   An iOS version where the underlying file-zeroing technique is adjustive. (below iOS 18.4)
+-   An iOS device.
+-   An iOS version where the underlying file-zeroing technique is effective (e.g., tested below iOS 18.4, but specific exploit viability can vary).
 -   Xcode to build the project.
 
 ## Building and Installation
@@ -46,11 +54,11 @@ The application uses a C-based exploit (based on the `VM_BEHAVIOR_ZERO_WIRED_PAG
 4.  **C Code:**
     The C files (`exploit_poc.c` and `exploit_poc.h`) containing the exploit logic must be part of the target's "Compile Sources" build phase.
 5.  **Sign and Build:**
-    Configure bundle ids and you'll be able to build an IPA).
+    Configure your bundle identifier and signing credentials in Xcode.
 6.  **Create IPA:**
-    Build the project and export as an IPA.
-7.  **Install with Sideloadly or whatever:**
-    Transfer the IPA to your device and install it.
+    Build the project and export the IPA.
+7.  **Install:**
+    Transfer the IPA to your device and install it using a sideloading utility like Sideloadly, AltStore, or if compatible, TrollStore.
 
 ## Usage
 
@@ -63,7 +71,7 @@ The application uses a C-based exploit (based on the `VM_BEHAVIOR_ZERO_WIRED_PAG
 
 ## Disclaimer
 
-This software is provided "as-is" without warranty of any kind. The authors or contributors are not responsible for any damage or data loss that may occur from its use. **Use at your own risk.** This tool is intended for educational and experimental purposes on test devices.
+This software is provided "as-is" without warranty of any kind. The authors or contributors are not responsible for any damage, data loss, or legal repercussions that may occur from its use. **Use at your own risk.** This tool is intended for educational and experimental purposes on test devices, in compliance with local laws.
 
 ## License
 
