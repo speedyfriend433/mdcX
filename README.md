@@ -11,12 +11,13 @@ This tool modifies system files. While the targeted files are generally for UI o
 - Files on the Sealed System Volume (SSV) may be restored by the OS upon reboot.
 
 **📸 IMPORTANT NOTE ON CAMERA SHUTTER SOUNDS 📸**
-- **In some countries (e.g., Japan, South Korea), it is illegal to disable or silence the camera shutter sound on mobile devices.**
-- This tool provides the technical means to attempt to silence these sounds by modifying system files.
-- **Users are solely responsible for understanding and complying with all local laws and regulations regarding camera shutter sounds in their region.**
-- Using this feature to disable shutter sounds where it is prohibited by law is done at the user's own risk and discretion.
-- This feature may not be effective in regions with OS-level enforcement of shutter sounds, regardless of file modifications.
-
+- **In some regions, such as South Korea and Japan, mobile phones are commonly manufactured or configured to always produce a camera shutter sound. This is typically due to industry standards, carrier requirements, or strong societal expectations aimed at preventing unauthorized photography.**
+- While this tool provides the technical means to *attempt* to silence these sounds by modifying system files, users should be aware of the following:
+    - The effectiveness of this tweak may be limited in regions where OS-level or hardware-level enforcements for shutter sounds exist.
+    - Modifying your device to bypass these culturally or industry-expected norms may be viewed negatively or have social implications depending on your location and context.
+- **Users are solely responsible for understanding the conventions and expectations regarding camera usage in their region.**
+- This feature is provided for experimental purposes on test devices.
+- 
 ## Features
 
 -   Apply various UI tweaks (e.g., hide dock, transparent UI elements).
