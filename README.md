@@ -36,8 +36,8 @@ The application uses a C-based exploit (based on the `VM_BEHAVIOR_ZERO_WIRED_PAG
 
 1.  **Clone the Repository:**
     ```bash
-    git clone [https://github.com/speedyfriend433/mdcX.git]
-    cd [mdcX]
+    git clone https://github.com/speedyfriend433/mdcX.git
+    cd mdcX
     ```
 2.  **Open in Xcode:**
     Open the `.xcodeproj` or `.xcworkspace` file.
