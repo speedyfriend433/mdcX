@@ -9,22 +9,96 @@ import SwiftUI
 
 struct ContentView: View {
     @State private var tweaks: [Tweak] = [
-        Tweak(name: "Hide Dock", description: "Makes the dock background transparent.", action: .zeroOutFiles(paths: ["/System/Library/PrivateFrameworks/CoreMaterial.framework/dockDark.materialrecipe", "/System/Library/PrivateFrameworks/CoreMaterial.framework/dockLight.materialrecipe"]), category: "Dock", status: "", isProcessing: false),
+        Tweak(name: "Hide Dock",
+              description: "Makes the dock background transparent.",
+              action: .zeroOutFiles(paths: [
+                "/System/Library/PrivateFrameworks/CoreMaterial.framework/dockDark.materialrecipe",
+                "/System/Library/PrivateFrameworks/CoreMaterial.framework/dockLight.materialrecipe"
+              ]),
+              category: "Dock", status: "", isProcessing: false),
+
+        Tweak(name: "Transparent UI Elements",
+              description: "Makes notifications, media player backgrounds transparent.",
+              action: .zeroOutFiles(paths: [
+                "/System/Library/PrivateFrameworks/CoreMaterial.framework/platterStrokeLight.visualstyleset",
+                "/System/Library/PrivateFrameworks/CoreMaterial.framework/platterStrokeDark.visualstyleset",
+                "/System/Library/PrivateFrameworks/CoreMaterial.framework/plattersDark.materialrecipe",
+                "/System/Library/PrivateFrameworks/SpringBoardHome.framework/folderLight.materialrecipe",
+                "/System/Library/PrivateFrameworks/SpringBoardHome.framework/folderDark.materialrecipe",
+                "/System/Library/PrivateFrameworks/CoreMaterial.framework/platters.materialrecipe"
+              ]),
+              category: "UI Elements", status: "", isProcessing: false),
         
-        Tweak(name: "Transparent UI Elements", description: "Makes notifications, media player, folders transparent.", action: .zeroOutFiles(paths: ["/System/Library/PrivateFrameworks/CoreMaterial.framework/platterStrokeLight.visualstyleset", "/System/Library/PrivateFrameworks/CoreMaterial.framework/platterStrokeDark.visualstyleset", "/System/Library/PrivateFrameworks/CoreMaterial.framework/plattersDark.materialrecipe", "/System/Library/PrivateFrameworks/SpringBoardHome.framework/folderLight.materialrecipe", "/System/Library/PrivateFrameworks/SpringBoardHome.framework/folderDark.materialrecipe", "/System/Library/PrivateFrameworks/CoreMaterial.framework/platters.materialrecipe"]), category: "UI Elements", status: "", isProcessing: false),
-        
-        Tweak(name: "Hide Home Bar", description: "Attempts to hide the home indicator bar.", action: .zeroOutFiles(paths: ["/System/Library/PrivateFrameworks/MaterialKit.framework/Assets.car"]), category: "UI Elements", status: "", isProcessing: false),
-        Tweak(name: "Hide Lockscreen Shortcuts", description: "Hides flashlight and camera buttons on lockscreen.", action: .zeroOutFiles(paths: ["/System/Library/PrivateFrameworks/CoverSheet.framework/Assets.car"]), category: "Lockscreen", status: "", isProcessing: false),
-        
-        Tweak(name: "Silence Video Record Sounds", description: "Disables sounds when video recording starts/ends.", action: .zeroOutFiles(paths: ["/System/Library/Audio/UISounds/begin_record.caf", "/System/Library/Audio/UISounds/end_record.caf"]), category: "Sounds", status: "", isProcessing: false),
-        
-        Tweak(name: "Silence Lock Sound", description: "Disables the sound when locking the device.", action: .zeroOutFiles(paths: ["/System/Library/Audio/UISounds/lock.caf"]), category: "Sounds", status: "", isProcessing: false),
-        
-        Tweak(name: "Silence Photo Shutter Sounds", description: "Disables camera shutter sounds for photos & bursts.", action: .zeroOutFiles(paths: ["/System/Library/Audio/UISounds/photoShutter.caf", "/System/Library/Audio/UISounds/Modern/camera_shutter_burst.caf", "/System/Library/Audio/UISounds/Modern/camera_shutter_burst_begin.caf", "/System/Library/Audio/UISounds/Modern/camera_shutter_burst_end.caf", "/System/Library/Audio/UISounds/nano/CameraShutter_Haptic.caf"]), category: "Sounds", status: "", isProcessing: false),
-        
-        Tweak(name: "Silence Keyboard Sounds", description: "Disables keyboard tap sounds.", action: .zeroOutFiles(paths: ["/System/Library/Audio/UISounds/key_press_click.caf", "/System/Library/Audio/UISounds/key_press_delete.caf", "/System/Library/Audio/UISounds/key_press_modifier.caf", "/System/Library/Audio/UISounds/keyboard_press_clear.caf", "/System/Library/Audio/UISounds/keyboard_press_delete.caf", "/System/Library/Audio/UISounds/keyboard_press_normal.caf"]), category: "Sounds", status: "", isProcessing: false)
-    ]
+        Tweak(name: "Hide Folder Backgrounds",
+              description: "Makes Home Screen folder backgrounds transparent.",
+              action: .zeroOutFiles(paths: [
+                "/System/Library/PrivateFrameworks/SpringBoardHome.framework/folderDark.materialrecipe",
+                "/System/Library/PrivateFrameworks/SpringBoardHome.framework/folderLight.materialrecipe"
+              ]),
+              category: "UI Elements", status: "", isProcessing: false),
+
+        Tweak(name: "Remove App Switcher Blur",
+              description: "Attempts to remove the background blur in the App Switcher.",
+              action: .zeroOutFiles(paths: [
+                "/System/Library/PrivateFrameworks/SpringBoard.framework/homeScreenBackdrop-application.materialrecipe",
+                "/System/Library/PrivateFrameworks/SpringBoard.framework/homeScreenBackdrop-switcher.materialrecipe"
+              ]),
+              category: "UI Elements", status: "", isProcessing: false),
+
+        Tweak(name: "Hide Home Bar",
+              description: "Attempts to hide the home indicator bar.",
+              action: .zeroOutFiles(paths: ["/System/Library/PrivateFrameworks/MaterialKit.framework/Assets.car"]),
+              category: "UI Elements", status: "", isProcessing: false),
+
+        Tweak(name: "Hide Lockscreen Shortcuts",
+              description: "Hides flashlight and camera buttons on lockscreen.",
+              action: .zeroOutFiles(paths: ["/System/Library/PrivateFrameworks/CoverSheet.framework/Assets.car"]),
+              category: "Lockscreen", status: "", isProcessing: false),
+
+        Tweak(name: "Silence Video Record Sounds",
+              description: "Disables sounds when video recording starts/ends.",
+              action: .zeroOutFiles(paths: [
+                "/System/Library/Audio/UISounds/begin_record.caf",
+                "/System/Library/Audio/UISounds/end_record.caf"
+              ]),
+              category: "Sounds",
+              status: "",
+              isProcessing: false),
     
+        Tweak(name: "Silence Lock Sound",
+              description: "Disables the sound when locking the device.",
+              action: .zeroOutFiles(paths: ["/System/Library/Audio/UISounds/lock.caf"]),
+              category: "Sounds",
+              status: "",
+              isProcessing: false),
+    
+        Tweak(name: "Silence Photo Shutter Sounds",
+              description: "Disables camera shutter sounds for photos & bursts.",
+              action: .zeroOutFiles(paths: [
+                "/System/Library/Audio/UISounds/photoShutter.caf",
+                "/System/Library/Audio/UISounds/Modern/camera_shutter_burst.caf",
+                "/System/Library/Audio/UISounds/Modern/camera_shutter_burst_begin.caf",
+                "/System/Library/Audio/UISounds/Modern/camera_shutter_burst_end.caf",
+                "/System/Library/Audio/UISounds/nano/CameraShutter_Haptic.caf"
+              ]),
+              category: "Sounds",
+              status: "",
+              isProcessing: false),
+    
+        Tweak(name: "Silence Keyboard Sounds",
+              description: "Disables keyboard tap sounds.",
+              action: .zeroOutFiles(paths: [
+                "/System/Library/Audio/UISounds/key_press_click.caf",
+                "/System/Library/Audio/UISounds/key_press_delete.caf",
+                "/System/Library/Audio/UISounds/key_press_modifier.caf",
+                "/System/Library/Audio/UISounds/keyboard_press_clear.caf",
+                "/System/Library/Audio/UISounds/keyboard_press_delete.caf",
+                "/System/Library/Audio/UISounds/keyboard_press_normal.caf"
+              ]),
+              category: "Sounds",
+              status: "",
+              isProcessing: false)
+    ]
     @StateObject private var logStore = LogStore()
     @State private var isAnyTweakProcessing: Bool = false
 
