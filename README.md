@@ -74,6 +74,14 @@ The application uses a C-based exploit (based on the `VM_BEHAVIOR_ZERO_WIRED_PAG
 
 This software is provided "as-is" without warranty of any kind. The authors or contributors are not responsible for any damage, data loss, or legal repercussions that may occur from its use. **Use at your own risk.** This tool is intended for educational and experimental purposes on test devices, in compliance with local laws.
 
+## Credits
+
+- @Google Project Zero - thanks for the insane discovery!
+  
+- @34306 : thanks for the basic knowledge explanations!
+
+- @sH1222J : thanks for the readme.md correction report!
+
 ## License
 
 This project is licensed under the [MIT License](https://github.com/speedyfriend433/mdcX/blob/main/LICENSE). See the `LICENSE` file for details.
