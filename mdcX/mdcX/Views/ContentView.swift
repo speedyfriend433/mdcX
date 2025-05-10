@@ -25,6 +25,15 @@ struct ContentView: View {
               category: "Dock",
               status: "",
               isProcessing: false),
+        
+        Tweak(name: "Remove Spotlight Bottom Blur",
+              description: "Attempts to remove a blur effect at the bottom of the Spotlight search interface. Requires respring.",
+              action: .zeroOutFiles(paths: [
+                "/System/Library/PrivateFrameworks/SpotlightUIInternal.framework/bottomBlur.materialrecipe"
+              ]),
+              category: "Spotlight",
+              status: "",
+              isProcessing: false),
 
         Tweak(name: "Transparent UI Elements",
               description: "Makes notifications, media player backgrounds transparent.",
@@ -61,9 +70,19 @@ struct ContentView: View {
               action: .zeroOutFiles(paths: [
                 "/System/Library/PrivateFrameworks/SpringBoardHome.framework/homeScreenOverlay.materialrecipe"
               ]),
-              category: "UI Elements", 
+              category: "UI Elements",
               status: "",
               isProcessing: false),
+        
+        /*Tweak(name: "Remove Platter Shadows",
+              description: "Attempts to remove the drop shadows from notifications, widgets, and other platter-based UI. Affects light/dark modes. Requires respring.",
+              action: .zeroOutFiles(paths: [
+                "/System/Library/PrivateFrameworks/MaterialKit.framework/platterVibrantShadowDark.visualstyleset",
+                "/System/Library/PrivateFrameworks/MaterialKit.framework/platterVibrantShadowLight.visualstyleset"
+              ]),
+              category: "UI Elements",
+              status: "",
+              isProcessing: false),*/
 
         Tweak(name: "Remove App Switcher Blur",
               description: "Attempts to remove the background blur in the App Switcher.",
@@ -87,6 +106,15 @@ struct ContentView: View {
               description: "Attempts to hide the home indicator bar.",
               action: .zeroOutFiles(paths: ["/System/Library/PrivateFrameworks/MaterialKit.framework/Assets.car"]),
               category: "UI Elements", status: "", isProcessing: false),
+        
+        /*Tweak(name: "Remove Home Screen Text Legibility FX",
+              description: "Attempts to remove subtle shadows/blurs behind Home Screen icon labels and widget text. May make text harder to read on some wallpapers. Requires respring.",
+              action: .zeroOutFiles(paths: [
+                "/System/Library/PrivateFrameworks/PaperBoardUI.framework/homeScreenLegibility.materialrecipe"
+              ]),
+              category: "Home Screen", // Or "UI Elements", "Text & Fonts"
+              status: "",
+              isProcessing: false),*/
 
         Tweak(name: "Hide Lockscreen Shortcuts",
               description: "Hides flashlight and camera buttons on lockscreen.",
