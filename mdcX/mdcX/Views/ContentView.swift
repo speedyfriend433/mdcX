@@ -34,7 +34,7 @@ struct ContentView: View {
               category: "Spotlight",
               status: "",
               isProcessing: false),
-
+        
         Tweak(name: "Transparent UI Elements",
               description: "Makes notifications, media player backgrounds transparent.",
               action: .zeroOutFiles(paths: [
@@ -75,15 +75,15 @@ struct ContentView: View {
               isProcessing: false),
         
         /*Tweak(name: "Remove Platter Shadows",
-              description: "Attempts to remove the drop shadows from notifications, widgets, and other platter-based UI. Affects light/dark modes. Requires respring.",
-              action: .zeroOutFiles(paths: [
-                "/System/Library/PrivateFrameworks/MaterialKit.framework/platterVibrantShadowDark.visualstyleset",
-                "/System/Library/PrivateFrameworks/MaterialKit.framework/platterVibrantShadowLight.visualstyleset"
-              ]),
-              category: "UI Elements",
-              status: "",
-              isProcessing: false),*/
-
+         description: "Attempts to remove the drop shadows from notifications, widgets, and other platter-based UI. Affects light/dark modes. Requires respring.",
+         action: .zeroOutFiles(paths: [
+         "/System/Library/PrivateFrameworks/MaterialKit.framework/platterVibrantShadowDark.visualstyleset",
+         "/System/Library/PrivateFrameworks/MaterialKit.framework/platterVibrantShadowLight.visualstyleset"
+         ]),
+         category: "UI Elements",
+         status: "",
+         isProcessing: false),*/
+        
         Tweak(name: "Remove App Switcher Blur",
               description: "Attempts to remove the background blur in the App Switcher.",
               action: .zeroOutFiles(paths: [
@@ -101,21 +101,21 @@ struct ContentView: View {
               category: "UI Elements", 
               status: "",
               isProcessing: false),
-
+        
         Tweak(name: "Hide Home Bar",
               description: "Attempts to hide the home indicator bar.",
               action: .zeroOutFiles(paths: ["/System/Library/PrivateFrameworks/MaterialKit.framework/Assets.car"]),
               category: "UI Elements", status: "", isProcessing: false),
         
         /*Tweak(name: "Remove Home Screen Text Legibility FX",
-              description: "Attempts to remove subtle shadows/blurs behind Home Screen icon labels and widget text. May make text harder to read on some wallpapers. Requires respring.",
-              action: .zeroOutFiles(paths: [
-                "/System/Library/PrivateFrameworks/PaperBoardUI.framework/homeScreenLegibility.materialrecipe"
-              ]),
-              category: "Home Screen", // Or "UI Elements", "Text & Fonts"
-              status: "",
-              isProcessing: false),*/
-
+         description: "Attempts to remove subtle shadows/blurs behind Home Screen icon labels and widget text. May make text harder to read on some wallpapers. Requires respring.",
+         action: .zeroOutFiles(paths: [
+         "/System/Library/PrivateFrameworks/PaperBoardUI.framework/homeScreenLegibility.materialrecipe"
+         ]),
+         category: "Home Screen", // Or "UI Elements", "Text & Fonts"
+         status: "",
+         isProcessing: false),*/
+        
         Tweak(name: "Hide Lockscreen Shortcuts",
               description: "Hides flashlight and camera buttons on lockscreen.",
               action: .zeroOutFiles(paths: ["/System/Library/PrivateFrameworks/CoverSheet.framework/Assets.car"]),
@@ -136,7 +136,7 @@ struct ContentView: View {
               category: "Sounds",
               status: "",
               isProcessing: false),
-
+        
         Tweak(name: "Silence Video Record Sounds",
               description: "Disables sounds when video recording starts/ends.",
               action: .zeroOutFiles(paths: [
@@ -146,7 +146,7 @@ struct ContentView: View {
               category: "Sounds",
               status: "",
               isProcessing: false),
-    
+        
         Tweak(name: "Silence Photo Shutter Sounds",
               description: "Disables camera shutter sounds for photos & bursts.",
               action: .zeroOutFiles(paths: [
@@ -168,7 +168,7 @@ struct ContentView: View {
               category: "Sounds",
               status: "",
               isProcessing: false),
-    
+        
         Tweak(name: "Silence Keyboard Sounds",
               description: "Disables keyboard tap sounds.",
               action: .zeroOutFiles(paths: [
@@ -194,36 +194,38 @@ struct ContentView: View {
     ]
     @StateObject private var logStore = LogStore()
     @State private var isAnyTweakProcessing: Bool = false
-
+    @State private var isRespringProcessing: Bool = false // State for the respring button
+    @State private var alertItem: AlertItem?
+    
     private let exploitManager = ExploitManager.shared
-
+    
     private var groupedTweaks: [String: [Tweak]] {
         Dictionary(grouping: tweaks, by: { $0.category })
     }
-
+    
     private var sortedCategoryKeys: [String] {
         groupedTweaks.keys.sorted()
     }
-
+    
     private func applyTweak(id: UUID) {
         guard let tweakIndex = tweaks.firstIndex(where: { $0.id == id }) else {
             logStore.append(message: "Error: Tweak with ID \(id) not found.")
             return
         }
-        guard !tweaks[tweakIndex].isProcessing && !isAnyTweakProcessing else {
-            logStore.append(message: "Operation already in progress for \(tweaks[tweakIndex].name) or batch.")
+        guard !tweaks[tweakIndex].isProcessing && !isAnyTweakProcessing && !isRespringProcessing else {
+            logStore.append(message: "Operation already in progress for \(tweaks[tweakIndex].name) or another task.")
             return
         }
-
+        
         tweaks[tweakIndex].isProcessing = true
         tweaks[tweakIndex].status = "Processing..."
         exploitManager.logStore = self.logStore
-
+        
         exploitManager.applyPocToFileZero(tweaks[tweakIndex]) { successCount, totalFiles, resultsLog in
             if let updatedTweakIndex = self.tweaks.firstIndex(where: { $0.id == id }) {
                 self.tweaks[updatedTweakIndex].status = "\(successCount)/\(totalFiles) Succeeded"
                 if !resultsLog.isEmpty {
-                     self.logStore.append(message: "Results for '\(self.tweaks[updatedTweakIndex].name)':\n\(resultsLog)")
+                    self.logStore.append(message: "Results for '\(self.tweaks[updatedTweakIndex].name)':\n\(resultsLog)")
                 }
                 self.tweaks[updatedTweakIndex].isProcessing = false
             }
@@ -231,11 +233,11 @@ struct ContentView: View {
     }
     
     private func applyAllTweaks() {
-        guard !isAnyTweakProcessing && !tweaks.contains(where: { $0.isProcessing }) else {
+        guard !isAnyTweakProcessing && !isRespringProcessing && !tweaks.contains(where: { $0.isProcessing }) else {
             logStore.append(message: "Operation already in progress.")
             return
         }
-
+        
         logStore.append(message: "Starting all PoC file-zero tweaks...")
         isAnyTweakProcessing = true
         exploitManager.logStore = self.logStore
@@ -250,7 +252,7 @@ struct ContentView: View {
             
             group.enter()
             exploitManager.applyPocToFileZero(tweaks[i]) { successCount, totalFiles, _ in
-                 if self.tweaks.indices.contains(i) {
+                if self.tweaks.indices.contains(i) {
                     self.tweaks[i].status = "Batch: \(successCount)/\(totalFiles) OK"
                     summary += "\(self.tweaks[i].name): \(self.tweaks[i].status)\n"
                     self.tweaks[i].isProcessing = false
@@ -264,7 +266,25 @@ struct ContentView: View {
             isAnyTweakProcessing = false
         }
     }
-
+    
+    private func triggerCFNotificationRespring() {
+        guard !isRespringProcessing && !isAnyTweakProcessing && !tweaks.contains(where: {$0.isProcessing}) else {
+            logStore.append(message: "Another operation is already in progress.")
+            return
+        }
+        isRespringProcessing = true
+        logStore.append(message: "Attempting respring via CFNotificationCenter...")
+        
+        DispatchQueue.global(qos: .userInitiated).async {
+            RespringHelper.attemptDarwinRespring()
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + 2.5) { 
+                logStore.append(message: "CFNotification for respring posted. If device hasn't respring, this method may not be effective on your iOS version.")
+                isRespringProcessing = false
+            }
+        }
+    }
+    
     var body: some View {
         NavigationView {
             VStack(spacing: 0) {
@@ -282,10 +302,17 @@ struct ContentView: View {
                                 )
                             }
                         } header: {
-                             Text(categoryKey)
+                            Text(categoryKey)
                                 .font(.title3.weight(.semibold))
                                 .padding(.vertical, 5)
                         } footer: {
+                            if categoryKey == sortedCategoryKeys.last && categoryKey == "Sounds" { // Example: Special footer for Sounds
+                                Text("Note: Silencing camera shutter sounds may have legal or social implications in some regions. Please be aware of local conventions.")
+                                    .font(.caption2)
+                                    .foregroundColor(.orange)
+                                    .padding(.vertical, 5)
+                                    .frame(maxWidth: .infinity, alignment: .leading)
+                            }
                             if categoryKey == sortedCategoryKeys.last {
                                 Text("Manual respring/reboot required for changes to take effect. Use with caution.")
                                     .font(.caption2)
@@ -302,13 +329,23 @@ struct ContentView: View {
                     .padding(.horizontal)
                     .padding(.bottom, 5)
                     .padding(.top, 8)
-
             }
             .navigationTitle("iOS File Tweaker")
             .toolbar {
-                ToolbarItem(placement: .navigationBarLeading) {
-                    Image(systemName: "hammer.circle.fill")
-                        .foregroundColor(.accentColor)
+                ToolbarItemGroup(placement: .navigationBarLeading) {
+                    Button {
+                        self.alertItem = AlertItem(
+                            title: Text("Confirm Respring"),
+                            message: Text("This attempts to respring using a CFNotification. It may not work on all iOS versions. Continue?"),
+                            primaryButton: .destructive(Text("Attempt Respring")) {
+                                triggerCFNotificationRespring()
+                            },
+                            secondaryButton: .cancel()
+                        )
+                    } label: {
+                        Image(systemName: "arrow.triangle.2.circlepath.circle.fill")
+                    }
+                    .disabled(isRespringProcessing || isAnyTweakProcessing || tweaks.contains(where: {$0.isProcessing}))
                 }
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button {
@@ -316,9 +353,12 @@ struct ContentView: View {
                     } label: {
                         Text("Apply All")
                     }
-                    .buttonStyle(CustomButtonStyle(color: .green, foregroundColor: .white, isDisabledStyle: isAnyTweakProcessing || tweaks.contains(where: {$0.isProcessing})))
-                    .disabled(isAnyTweakProcessing || tweaks.contains(where: {$0.isProcessing}))
+                    .buttonStyle(CustomButtonStyle(color: .green, foregroundColor: .white, isDisabledStyle: isAnyTweakProcessing || isRespringProcessing || tweaks.contains(where: {$0.isProcessing})))
+                    .disabled(isAnyTweakProcessing || isRespringProcessing || tweaks.contains(where: {$0.isProcessing}))
                 }
+            }
+            .alert(item: $alertItem) { item in
+                Alert(title: item.title, message: item.message, primaryButton: item.primaryButton, secondaryButton: item.secondaryButton ?? .cancel())
             }
             .onAppear {
                 exploitManager.logStore = self.logStore
