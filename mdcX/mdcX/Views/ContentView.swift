@@ -129,6 +129,13 @@ struct ContentView: View {
               category: "Sounds",
               status: "",
               isProcessing: false),
+        
+        Tweak(name: "Silence Lock Sound",
+              description: "Disables the sound when locking the device.",
+              action: .zeroOutFiles(paths: ["/System/Library/Audio/UISounds/lock.caf"]),
+              category: "Sounds",
+              status: "",
+              isProcessing: false),
 
         Tweak(name: "Silence Video Record Sounds",
               description: "Disables sounds when video recording starts/ends.",
@@ -136,13 +143,6 @@ struct ContentView: View {
                 "/System/Library/Audio/UISounds/begin_record.caf",
                 "/System/Library/Audio/UISounds/end_record.caf"
               ]),
-              category: "Sounds",
-              status: "",
-              isProcessing: false),
-    
-        Tweak(name: "Silence Lock Sound",
-              description: "Disables the sound when locking the device.",
-              action: .zeroOutFiles(paths: ["/System/Library/Audio/UISounds/lock.caf"]),
               category: "Sounds",
               status: "",
               isProcessing: false),
@@ -159,6 +159,15 @@ struct ContentView: View {
               category: "Sounds",
               status: "",
               isProcessing: false),
+        
+        Tweak(name: "Silence Screenshot Sound",
+              description: "Attempts to disable the sound when taking a screenshot. Reboot/SSV might restore it.",
+              action: .zeroOutFiles(paths: [
+                "/System/Library/Audio/UISounds/Screenshot.caf"
+              ]),
+              category: "Sounds",
+              status: "",
+              isProcessing: false),
     
         Tweak(name: "Silence Keyboard Sounds",
               description: "Disables keyboard tap sounds.",
@@ -171,6 +180,15 @@ struct ContentView: View {
                 "/System/Library/Audio/UISounds/keyboard_press_normal.caf"
               ]),
               category: "Sounds",
+              status: "",
+              isProcessing: false),
+        
+        Tweak(name: "☢️ Nuke UIKitCore Materials ☢️",
+              description: "EXTREMELY DANGEROUS! Attempts to zero out a core UIKitCore material asset catalog. Expect widespread UI breakage, visual glitches, and potential app/system instability. HIGH CHANCE OF NEEDING DFU RESTORE. For advanced experimentation only.",
+              action: .zeroOutFiles(paths: [
+                "/System/Library/PrivateFrameworks/UIKitCore.framework/Artwork/composited_Materials.car"
+              ]),
+              category: "☢️ System Critical (DANGER) ☢️", 
               status: "",
               isProcessing: false)
     ]
