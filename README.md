@@ -80,6 +80,8 @@ This software is provided "as-is" without warranty of any kind. The authors or c
   
 - @34306 : thanks for the basic knowledge explanations!
 
+- @Mattycbtw : thanks for the additional util paths!
+ 
 - @sH1222J : thanks for the readme.md correction report!
 
 ## License
