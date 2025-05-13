@@ -160,14 +160,14 @@ struct ContentView: View {
               status: "",
               isProcessing: false),
         
-        Tweak(name: "Silence Screenshot Sound",
+        /*Tweak(name: "Silence Screenshot Sound",
               description: "Attempts to disable the sound when taking a screenshot. Reboot/SSV might restore it.",
               action: .zeroOutFiles(paths: [
-                "/System/Library/Audio/UISounds/Screenshot.caf"
+                "/System/Library/Audio/UISounds/screenshot.caf"
               ]),
               category: "Sounds",
               status: "",
-              isProcessing: false),
+              isProcessing: false),*/
         
         Tweak(name: "Silence Keyboard Sounds",
               description: "Disables keyboard tap sounds.",
@@ -181,16 +181,16 @@ struct ContentView: View {
               ]),
               category: "Sounds",
               status: "",
-              isProcessing: false),
+              isProcessing: false)
         
-        Tweak(name: "☢️ Nuke UIKitCore Materials ☢️",
+        /*Tweak(name: "☢️ Nuke UIKitCore Materials ☢️",
               description: "EXTREMELY DANGEROUS! Attempts to zero out a core UIKitCore material asset catalog. Expect widespread UI breakage, visual glitches, and potential app/system instability. HIGH CHANCE OF NEEDING DFU RESTORE. For advanced experimentation only.",
               action: .zeroOutFiles(paths: [
                 "/System/Library/PrivateFrameworks/UIKitCore.framework/Artwork/composited_Materials.car"
               ]),
               category: "☢️ System Critical (DANGER) ☢️", 
               status: "",
-              isProcessing: false)
+              isProcessing: false)*/
     ]
     @StateObject private var logStore = LogStore()
     @State private var isAnyTweakProcessing: Bool = false
