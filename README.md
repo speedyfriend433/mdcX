@@ -76,13 +76,15 @@ This software is provided "as-is" without warranty of any kind. The authors or c
 
 ## Credits
 
-- @Google Project Zero - thanks for the insane discovery!
+- @Google Project Zero - Thanks for the insane discovery!
   
-- @34306 : thanks for the basic knowledge explanations!
+- @34306 : Thanks for the basic knowledge explanations!
 
-- @Mattycbtw : thanks for the additional util paths!
+- @Mattycbtw : Thanks for the additional util paths!
  
-- @sH1222J : thanks for the readme.md correction report!
+- @sH1222J : Thanks for the readme.md correction report!
+
+- @AppinstalleriOS & @GeoSn0w : Thanks for the Swift version of PoC Code!
 
 ## License
 
