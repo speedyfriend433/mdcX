@@ -221,7 +221,8 @@ struct ContentView: View {
         tweaks[tweakIndex].status = "Processing..."
         exploitManager.logStore = self.logStore
         
-        exploitManager.applyPocToFileZero(tweaks[tweakIndex]) { successCount, totalFiles, resultsLog in
+        exploitManager.applyFileZeroTweak(tweaks[tweakIndex],
+                                          zeroAllFilePages: false) { successCount, totalFiles, resultsLog in
             if let updatedTweakIndex = self.tweaks.firstIndex(where: { $0.id == id }) {
                 self.tweaks[updatedTweakIndex].status = "\(successCount)/\(totalFiles) Succeeded"
                 if !resultsLog.isEmpty {
@@ -251,7 +252,8 @@ struct ContentView: View {
             tweaks[i].status = "Batching..."
             
             group.enter()
-            exploitManager.applyPocToFileZero(tweaks[i]) { successCount, totalFiles, _ in
+            exploitManager.applyFileZeroTweak(tweaks[i],
+                                              zeroAllFilePages: false) { successCount, totalFiles, _ in
                 if self.tweaks.indices.contains(i) {
                     self.tweaks[i].status = "Batch: \(successCount)/\(totalFiles) OK"
                     summary += "\(self.tweaks[i].name): \(self.tweaks[i].status)\n"
